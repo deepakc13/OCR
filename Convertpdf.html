@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create PDF from Extracted Text</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f5;
+        }
+
+        header {
+            background-color: #292b2c;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        .logo h1 {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffb900;
+        }
+
+        main {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #f9fdff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin: 20px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #292b2c;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ffb900;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>OPTICAL CHARACTER RECOGNITION</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="Convertpdf.html">Convert PDF</a></li>
+                <li><a href="login.html" class="btn">Login</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Create PDF from Extracted Text</h2>
+        <textarea id="extractedText" placeholder="Paste or type your extracted text here..."></textarea>
+        <button onclick="generatePDF()">Download PDF</button>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf; // Get the jsPDF object
+            const doc = new jsPDF();
+
+            // Get the text from the textarea
+            const extractedText = document.getElementById('extractedText').value;
+
+            if (!extractedText.trim()) {
+                alert("Please enter some text to generate a PDF.");
+                return;
+            }
+
+            // Split the text into lines for better formatting
+            const lines = doc.splitTextToSize(extractedText, 180);
+
+            // Add text to the PDF
+            doc.text(lines, 10, 10);
+
+            // Save the PDF with a default name
+            doc.save('ExtractedText.pdf');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create an account.">
+    <title>Register - Optical Character Recognition</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #292b2c;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffb900;
+        }
+
+        .btn {
+            background-color: #ffb900;
+            color: #292b2c;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff8c00;
+        }
+
+        /* Register Section */
+        .register-section {
+            background-color: #fff;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .register-section h2 {
+            margin-bottom: 20px;
+            color: #292b2c;
+            font-size: 26px;
+        }
+
+        .register-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .register-section label {
+            font-size: 14px;
+            color: #555;
+            text-align: left;
+        }
+
+        .register-section input[type="text"], 
+        .register-section input[type="email"], 
+        .register-section input[type="password"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .register-section input:focus {
+            border-color: #ffb900;
+            outline: none;
+        }
+
+        .register-section button {
+            background-color: #292b2c;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .register-section button:hover {
+            background-color: #ffb900;
+        }
+
+        .register-section p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .register-section p a {
+            color: #ffb900;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .register-section p a:hover {
+            color: #ff8c00;
+        }
+
+        footer {
+            background-color: #292b2c;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+
+    <script>
+        function validateForm() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/; 
+            const minPasswordLength = 8;
+
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid Gmail ID (example@gmail.com).");
+                return false;
+            }
+
+            if (password.length < minPasswordLength) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            // If validation passes, redirect to login page
+            alert("Registration successful! Redirecting to login page...");
+            window.location.href = 'login.html'; // Redirect to login page
+            return false; // Prevent actual form submission
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Optical Character Recognition</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="Convertpdf.html">Convert PDF</a></li>
+                <li><a href="login.html" class="btn">Login</a></li>
+                <li><a href="register.html" class="btn">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="register-section">
+            <h2>Register</h2>
+            <form onsubmit="return validateForm()">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="example@gmail.com">
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter at least 8 characters">
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Login here</a>.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Optical Character Recognition. All rights reserved.</p>
+    </footer>
+</body>
+</html>

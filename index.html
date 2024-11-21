@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to the Optical Character Recognition website.">
+    <title>Home - Optical Character Recognition</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #292b2c;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffb900;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #292b2c;
+            color: #fff;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .hero a {
+            background-color: #ffb900;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .hero a:hover {
+            background-color: #ff8c00;
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .feature {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            flex: 1 1 300px;
+        }
+
+        .feature h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            color: #292b2c;
+        }
+
+        .feature p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        footer {
+            background-color: #292b2c;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Hide file input */
+        .file-upload {
+            display: none;
+        }
+
+        /* Style for displaying extracted text */
+        .extracted-text {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            color: #292b2c;
+            font-size: 16px;
+            white-space: pre-wrap;
+            min-height: 100px;
+            user-select: text;
+            cursor: text;
+        }
+
+        /* Copy button */
+        .copy-btn {
+            margin-top: 10px;
+            background-color: #ffb900;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #ff8c00;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Optical Character Recognition</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="Convertpdf.html">Convert to PDF</a></li>
+                <li><a href="login.html" class="btn">Login</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Welcome to OCR Scanner</h2>
+        <p>
+            Your reliable tool for converting images and documents into editable text. 
+            Fast, accurate, and user-friendly OCR technology for everyone.
+        </p>
+        <!-- The Get Started button now triggers the file input -->
+        <a href="#" onclick="document.getElementById('file-input').click()">Get Started</a>
+        <!-- Hidden file input -->
+        <input type="file" id="file-input" class="file-upload" accept="image/*" onchange="handleFileUpload(event)">
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <h3>Fast and Accurate</h3>
+            <p>Our OCR engine processes your documents with exceptional speed and precision.</p>
+        </div>
+        <div class="feature">
+            <h3>User-Friendly Interface</h3>
+            <p>Easily upload and convert files with our simple, intuitive design.</p>
+        </div>
+        <div class="feature">
+            <h3>Secure and Private</h3>
+            <p>Your data is safe with us. We prioritize your privacy above all.</p>
+        </div>
+    </section>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/tesseract.min.js"></script>
+
+    <script>
+        // Function to handle file upload and text extraction using Tesseract.js
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const img = new Image();
+                    img.src = reader.result;
+
+                    img.onload = function() {
+                        // Use Tesseract.js to recognize text from the image
+                        Tesseract.recognize(
+                            img,
+                            'eng', // language (you can add more languages if needed)
+                            {
+                                logger: (m) => console.log(m) // Optional: log progress
+                            }
+                        ).then(({ data: { text } }) => {
+                            // Display the extracted text
+                            const extractedTextElement = document.getElementById('extracted-text');
+                            extractedTextElement.textContent = text;
+
+                            // Make the text selectable and show the copy button
+                            extractedTextElement.style.display = 'block';
+                            document.getElementById('copy-btn').style.display = 'inline-block';
+                        });
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard() {
+            const extractedText = document.getElementById('extracted-text').textContent;
+            navigator.clipboard.writeText(extractedText).then(() => {
+                alert('Text copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy text: ' + err);
+            });
+        }
+    </script>
+
+    <!-- Div to display the extracted text -->
+    <div id="extracted-text" class="extracted-text" style="display:none;"></div>
+
+    <!-- Copy button -->
+    <button id="copy-btn" class="copy-btn" style="display:none;" onclick="copyToClipboard()">Copy Text</button>
+    
+    
+    <footer>
+        <p>&copy; 2024 Optical Character Recognition. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
