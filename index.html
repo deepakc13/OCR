@@ -230,6 +230,16 @@
         <a href="#" onclick="document.getElementById('file-input').click()">Get Started</a>
         <!-- Hidden file input -->
         <input type="file" id="file-input" class="file-upload" accept="image/*" onchange="handleFileUpload(event)">
+   <div id="extracted-text"
+class="extracted-text"
+style="display:none;"></div>
+
+<button id="copy-btn"
+class="copy-btn"
+style="display:none;"
+onclick="copyToClipboard()">
+Copy Text
+</button>
     </section>
 
     <section class="features">
@@ -294,11 +304,7 @@
         }
     </script>
 
-    <!-- Div to display the extracted text -->
-    <div id="extracted-text" class="extracted-text" style="display:none;"></div>
-
-    <!-- Copy button -->
-    <button id="copy-btn" class="copy-btn" style="display:none;" onclick="copyToClipboard()">Copy Text</button>
+   
     
     
     <footer>
