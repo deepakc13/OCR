@@ -119,27 +119,34 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        async function generatePDF() {
-            const { jsPDF } = window.jspdf; // Get the jsPDF object
-            const doc = new jsPDF();
+async function generatePDF() {
 
-            // Get the text from the textarea
-            const extractedText = document.getElementById('extractedText').value;
+    const { jsPDF } = window.jspdf;
 
-            if (!extractedText.trim()) {
-                alert("Please enter some text to generate a PDF.");
-                return;
-            }
+    const doc = new jsPDF();
 
-            // Split the text into lines for better formatting
-            const lines = doc.splitTextToSize(extractedText, 180);
+    const extractedText =
+        document.getElementById('extractedText').value;
 
-            // Add text to the PDF
-            doc.text(lines, 10, 10);
+    if (!extractedText.trim()) {
+        alert("Please enter some text to generate a PDF.");
+        return;
+    }
 
-            // Save the PDF with a default name
-            doc.save('ExtractedText.pdf');
-        }
-    </script>
+    const lines =
+        doc.splitTextToSize(extractedText, 180);
+
+    doc.text(lines, 10, 10);
+
+    // Create PDF blob
+    const pdfBlob = doc.output('blob');
+
+    // Create URL
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    // Open PDF in new tab/browser
+    window.open(pdfUrl, "_blank");
+}
+</script>
 </body>
 </html>
