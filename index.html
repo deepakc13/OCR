@@ -272,6 +272,10 @@ Copy Text
 
                     img.onload = function() {
                         // Use Tesseract.js to recognize text from the image
+                        document.getElementById('extracted-text').style.display = 'block';
+
+document.getElementById('extracted-text').textContent =
+"Processing image...";
                         Tesseract.recognize(
                             img,
                             'eng', // language (you can add more languages if needed)
