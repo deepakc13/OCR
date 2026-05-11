@@ -165,7 +165,9 @@ async function generatePDF() {
 
     doc.text(lines, 10, 10);
 
-   doc.output('dataurlnewwindow');
+   const pdfData = doc.output('datauristring');
+
+window.location.href = pdfData;
 }
 </script>
 </body>
