@@ -148,26 +148,36 @@
     <script>
 async function generatePDF() {
 
-    const { jsPDF } = window.jspdf;
-
-    const doc = new jsPDF();
-
     const extractedText =
-        document.getElementById('extractedText').value;
+    document.getElementById('extractedText').value;
 
     if (!extractedText.trim()) {
-        alert("Please enter some text to generate a PDF.");
+        alert("Please enter some text.");
         return;
     }
 
-    const lines =
-        doc.splitTextToSize(extractedText, 180);
+    const newWindow = window.open();
 
-    doc.text(lines, 10, 10);
+    newWindow.document.write(`
+        <html>
+        <head>
+            <title>Generated PDF</title>
+            <style>
+                body{
+                    font-family: Arial;
+                    padding: 20px;
+                    line-height: 1.6;
+                }
+            </style>
+        </head>
+        <body>
+            <h2>Generated PDF Content</h2>
+            <p>${extractedText}</p>
+        </body>
+        </html>
+    `);
 
-   const pdfData = doc.output('datauristring');
-
-window.location.href = pdfData;
+    newWindow.document.close();
 }
 </script>
 </body>
