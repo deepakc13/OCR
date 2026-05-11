@@ -165,14 +165,7 @@ async function generatePDF() {
 
     doc.text(lines, 10, 10);
 
-    // Create PDF blob
-    const pdfBlob = doc.output('blob');
-
-    // Create URL
-    const pdfUrl = URL.createObjectURL(pdfBlob);
-
-    // Open PDF in new tab/browser
-   window.location.href = pdfUrl;
+   doc.output('dataurlnewwindow');
 }
 </script>
 </body>
